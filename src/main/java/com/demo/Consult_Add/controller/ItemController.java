@@ -20,12 +20,13 @@ public class ItemController {
     @Autowired
     public ItemService itemService;
 
-    @GetMapping("/get-item/{id}")
+    @GetMapping("/items/{id}")
     public ResponseEntity<?> getItem(@PathVariable int id) {
         try {
             Item item = itemService.getItemById(id);
             if(item == null) {
                 Logger.info("Item not found");
+                return new ResponseEntity<>("Item not found", HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(item, HttpStatus.OK);
         } catch (Exception e) {
