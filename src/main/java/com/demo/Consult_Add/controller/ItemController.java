@@ -16,5 +16,27 @@ public class ItemController {
     @Autowired
     public ItemService itemService;
 
-    
+    @GetMapping("/get-item/{id}")
+    public Item getItem(@PathVariable int id) {
+        try {
+            Item item = itemService.getItemById(id);
+            if(item == null) {
+                Logger.info("Item not found");
+            }
+            return item;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping("/save-item")
+    public Item saveItem(@RequestBody Item item) {
+        try {
+            Item savedItem = itemService.saveItem(item);
+            Logger.info("Item saved");
+            return savedItem;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
