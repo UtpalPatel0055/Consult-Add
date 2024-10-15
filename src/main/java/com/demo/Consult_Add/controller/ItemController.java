@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ItemController {
 
@@ -42,6 +44,17 @@ public class ItemController {
         } catch (Exception e) {
             Logger.error("Error while creating item", e);
             e.printStackTrace();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/items")
+    public ResponseEntity<?> getAllItems() {
+        try {
+            Logger.info("Getting all items");
+            List<Item> li = itemService.getAllItems();
+            return new ResponseEntity<>(li, HttpStatus.OK);
+        } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

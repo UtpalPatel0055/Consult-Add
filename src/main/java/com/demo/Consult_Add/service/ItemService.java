@@ -5,6 +5,7 @@ import com.demo.Consult_Add.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +27,9 @@ public class ItemService {
 
     public Item saveItem(Item item) {
         return itemRepository.save(item);
+    }
+
+    public List<Item> getAllItems() {
+        return itemRepository.findAll();
     }
 }
